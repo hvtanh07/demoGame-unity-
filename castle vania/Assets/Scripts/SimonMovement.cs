@@ -10,10 +10,14 @@ public class SimonMovement : MonoBehaviour
     public Transform groundCheck;
     public bool isGrounded;
     public float jumpForce;
+    public GameObject wip;
 
-   
+
+    private float attacktime;
+    private bool attacking;
 
     private bool right = true;
+    private bool walking = false;
     private bool sitting = false;
     private bool jumping = false;
     Rigidbody2D rb;
@@ -26,18 +30,43 @@ public class SimonMovement : MonoBehaviour
     }
     void Update()
     {
+        //jump
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
         }
+
+        //attack
+        if (Input.GetButtonDown("Slow"))
+        {
+            if (Time.timeScale == 0.25f)
+                Time.timeScale = 1f;
+            else
+                Time.timeScale = 0.25f;
+        }
+        if (Input.GetButtonDown("Attack"))
+        {
+            if (!walking && !attacking)
+            {
+                attacking = true;
+                anim.SetTrigger("Attack");
+                wip.SetActive(true);
+                attacktime = Time.time;
+            }
+        }
+        if (Time.time - attacktime >= 0.2f)
+        {
+            wip.SetActive(false);
+            attacking = false;
+        }
     }
     void FixedUpdate()
     {
+        //sit && jump
         isGrounded = Physics2D.OverlapPoint(groundCheck.position, whatIsGround);
 
-        float x = Input.GetAxis("Horizontal");
-
+        
         jumping = !isGrounded;
 
         if (Input.GetKey("down"))
@@ -57,29 +86,35 @@ public class SimonMovement : MonoBehaviour
             }
         }
 
-        anim.SetBool("Sit", sitting||jumping);
+        anim.SetBool("Sit", sitting || jumping);
 
-        
 
+
+
+        //movement
+
+        float x = Input.GetAxis("Horizontal");
         if (x != 0) anim.SetBool("Walking", true);
         else anim.SetBool("Walking", false);
 
         if (x < 0)
-        {  
+        {
+            walking = true;
             x = -1;
             right = false;
             transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
         else if (x > 0)
         {
+            walking = true;
             x = 1;
             right = true;
             transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-        
+        else walking = false;
+
         if (sitting) x = 0;
 
-        transform.position = new Vector2(transform.position.x + x * speed, transform.position.y);
-
+        transform.position = new Vector2(transform.position.x + x * speed, transform.position.y);       
     }
 }

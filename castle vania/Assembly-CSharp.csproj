@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
-    <Compile Include="Assets\Scripts\SimonAttack.cs" />
     <Compile Include="Assets\Scripts\SimonMovement.cs" />
     <Compile Include="Assets\Scripts\SpawnTourch.cs" />
     <Compile Include="Assets\Scripts\Tourchscript.cs" />

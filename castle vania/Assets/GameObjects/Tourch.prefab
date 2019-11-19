@@ -143,4 +143,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1024
