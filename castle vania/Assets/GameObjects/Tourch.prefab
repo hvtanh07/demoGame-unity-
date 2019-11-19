@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 4208520957061193671, guid: c45e28dfd59c8e545bdec526b7757fc5,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -141,4 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0f5132168ff0a43833f428db20ac34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  weapon:
+    serializedVersion: 2
+    m_Bits: 512

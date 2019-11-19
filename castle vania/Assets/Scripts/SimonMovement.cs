@@ -11,16 +11,18 @@ public class SimonMovement : MonoBehaviour
     public bool isGrounded;
     public float jumpForce;
 
-    public Animator anim;
+   
 
     private bool right = true;
     private bool sitting = false;
     private bool jumping = false;
     Rigidbody2D rb;
+    Animator anim;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -38,15 +40,23 @@ public class SimonMovement : MonoBehaviour
 
         jumping = !isGrounded;
 
-        sitting = false;
         if (Input.GetKey("down"))
         {
             if (sitting == false)
             {
                 sitting = true;
+                transform.position = new Vector2(transform.position.x, transform.position.y - 0.03f);
             }
         }
-        
+        else
+        {
+            if (sitting == true)
+            {
+                transform.position = new Vector2(transform.position.x, transform.position.y + 0.03f);
+                sitting = false;
+            }
+        }
+
         anim.SetBool("Sit", sitting||jumping);
 
         

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Tourchscript : MonoBehaviour
 {
-    public GameObject player;
-    
-    private void OnTriggerEnter(Collider other)
+    public LayerMask weapon;
+    private Transform self;
+    private void Awake()
     {
-        if (other == player)
+        self = GetComponent<Transform>();
+    }
+    void FixedUpdate()
+    {
+        if (Physics2D.OverlapPoint(self.position, weapon))
         {
+            Debug.Log("Touched");
             Destroy(gameObject);
         }
     }
