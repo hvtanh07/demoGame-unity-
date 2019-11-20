@@ -15,6 +15,7 @@ public class SimonMovement : MonoBehaviour
 
     private float attacktime;
     private bool attacking;
+    float x;
 
     private bool right = true;
     private bool walking = false;
@@ -40,10 +41,10 @@ public class SimonMovement : MonoBehaviour
         //attack
         if (Input.GetButtonDown("Slow"))
         {
-            if (Time.timeScale == 0.25f)
+            if (Time.timeScale == 0.15f)
                 Time.timeScale = 1f;
             else
-                Time.timeScale = 0.25f;
+                Time.timeScale = 0.15f;
         }
         if (Input.GetButtonDown("Attack"))
         {
@@ -55,7 +56,7 @@ public class SimonMovement : MonoBehaviour
                 attacktime = Time.time;
             }
         }
-        if (Time.time - attacktime >= 0.2f)
+        if (Time.time - attacktime >= 0.17f)
         {
             wip.SetActive(false);
             attacking = false;
@@ -66,7 +67,7 @@ public class SimonMovement : MonoBehaviour
         //sit && jump
         isGrounded = Physics2D.OverlapPoint(groundCheck.position, whatIsGround);
 
-        
+
         jumping = !isGrounded;
 
         if (Input.GetKey("down"))
@@ -92,8 +93,9 @@ public class SimonMovement : MonoBehaviour
 
 
         //movement
-
-        float x = Input.GetAxis("Horizontal");
+        if (!jumping) { 
+            x = Input.GetAxis("Horizontal");
+        }
         if (x != 0) anim.SetBool("Walking", true);
         else anim.SetBool("Walking", false);
 
